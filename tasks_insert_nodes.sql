@@ -1,5 +1,32 @@
 select version()
 
+SELECT task_id, task_title, task_desc, task_status, task_planned_end_date, task_start_date FROM public.tasks;
+
+/*
+task_status_desc|
+----------------+
+Not started     |
+In progress     |
+Suspended       |
+Done            |
+*/
+
+-- select roots
+SELECT t.task_title
+FROM paths p
+	inner join tasks t
+		on t.task_id = p.task_id 
+WHERE nlevel(p.task_path) = 1;
+
+-- 1.2
+SELECT t.task_title, p.task_path
+FROM paths p
+	inner join tasks t
+		on t.task_id = p.task_id 
+WHERE 
+	p.task_path <@ '1.2'
+	and nlevel(p.task_path) <= 3
+
 -- ------
 -- insert	
 with task_insert as 
@@ -14,10 +41,10 @@ with task_insert as
 		task_planned_end_date,
 		task_start_date)
 	values(nextval('tasks_task_id_seq'::regclass), 
-	'',
+	'2023-11',
 	null,
-	'Not started', -- In progress / Not started
-	'2023-10-29', -- task_planned_end_date
+	'Not started', -- In progress / Not started / Recurring
+	null, -- task_planned_end_date
 	null) returning task_id
 )
 insert
@@ -29,6 +56,8 @@ insert
 	)
 select
 	task_id,
-	text2ltree('1.2.85.105' || '.' || task_insert.task_id::text)
+	text2ltree('1.2.85.105.136' || '.' || task_insert.task_id::text)
 from
 	task_insert; -- end insert
+
+-- --

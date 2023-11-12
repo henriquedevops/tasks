@@ -66,7 +66,7 @@ with f1 as
 ( 
 select
 	p.task_path,
-	t2.task_id,
+	t2.task_id,public.tasks
 	t2.task_title,
 	t2.task_status,
 	t2.task_planned_end_date 
