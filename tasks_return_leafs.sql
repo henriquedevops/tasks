@@ -41,4 +41,6 @@ where
 		f1.task_path @> f2.task_path
 		and f1.task_path <> f2.task_path
 	) order by 2 asc
-) select * from q3 where task_status <> 'Done' and task_planned_end_date is not null order by task_planned_end_date, task_id asc; -- leafs - end
+) select * from q3 where task_status <> 'Done' 
+	-- and task_planned_end_date is not null 
+	order by task_planned_end_date, task_id asc; -- leafs - end

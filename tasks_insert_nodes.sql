@@ -34,18 +34,20 @@ with task_insert as
 	insert
 		into
 		public.tasks
-	(task_id,
+	(	task_id,
 		task_title,
 		task_desc,
 		task_status,
 		task_planned_end_date,
 		task_start_date)
-	values(nextval('tasks_task_id_seq'::regclass), 
-	'2023-11',
-	null,
-	'Not started', -- In progress / Not started / Recurring
-	null, -- task_planned_end_date
-	null) returning task_id
+	values(
+	nextval('tasks_task_id_seq'::regclass), -- task_id
+	'',						-- task_title
+	null,									-- task_desc
+	'Not started', 							-- task_status: In progress / Not started / Recurring
+	null, 									-- task_planned_end_date
+	null									-- task_start_date
+	) returning task_id
 )
 insert
 	into
@@ -56,7 +58,7 @@ insert
 	)
 select
 	task_id,
-	text2ltree('1.2.85.105.136' || '.' || task_insert.task_id::text)
+	text2ltree('1.138.150' || '.' || task_insert.task_id::text)
 from
 	task_insert; -- end insert
 
