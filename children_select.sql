@@ -24,6 +24,8 @@ FROM paths p
 	inner join tasks t
 		on t.task_id = p.task_id 
 WHERE 
-	p.task_path <@ '1.2.85.105'
+	true
+	and p.task_path <@ '1.138' -- wish
+--	and p.task_path <@ '1.2.85.105'
 --	and nlevel(p.task_path) <= 2
 order by task_path

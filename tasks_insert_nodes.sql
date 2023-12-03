@@ -42,9 +42,9 @@ with task_insert as
 		task_start_date)
 	values(
 	nextval('tasks_task_id_seq'::regclass), -- task_id
-	'',						-- task_title
+	'Mini PC for Carol',										-- task_title
 	null,									-- task_desc
-	'Recurring', 							-- task_status: In progress / Not started / Recurring
+	'Not started', 							-- task_status: In progress / Not started / Recurring
 	null, 									-- task_planned_end_date
 	null									-- task_start_date
 	) returning task_id
@@ -58,7 +58,7 @@ insert
 	)
 select
 	task_id,
-	text2ltree('1.2.85.105' || '.' || task_insert.task_id::text)
+	text2ltree('1.138' || '.' || task_insert.task_id::text)
 from
 	task_insert; -- end insert
 
